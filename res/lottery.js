@@ -38,24 +38,32 @@ var Lottery = (function() {
   };
 
   var start  = function() {
-    clearInterval(timer);
-
-    backAudio.play();
-    stopAudio.pause();
-
-    timer = setInterval(function() {
-
-      curPos = parseInt($content.css("left")) | 0;
-      curPos -= itemWidth / 2;
-
-      (curPos < 0 - itemWidth * itemCount) && (curPos = 0);
-
-      $content.css("left", curPos);
-
-    }, 15);
-
-    $hero.hide();
+      qwe(15);
   };
+
+  var qwe = function (a) {
+      clearInterval(timer);
+
+      backAudio.play();
+      stopAudio.pause();
+
+      timer = setInterval(function() {
+
+          curPos = parseInt($content.css("left")) | 0;
+          curPos -= itemWidth / 2;
+
+          (curPos < 0 - itemWidth * itemCount) && (curPos = 0);
+
+          $content.css("left", curPos);
+
+      }, a);
+
+      $hero.hide();
+  };
+
+
+
+
 
   var stop = function() {
     clearInterval(timer);
@@ -84,12 +92,13 @@ var Lottery = (function() {
         imgUrl = $items.eq(idx + 3).attr("src");
 
     $content.css("left", curPos);
-    $hero.attr("src", imgUrl).show("slow");
+    //$hero.attr("src", imgUrl).show("slow");
 
 
 
       $(".result").html( $("#lottery-container li").eq(idx+3).html() );
 
+      $(".title").html("恭喜这位同学：");
 
     console.log(curPos, idx);
   };
@@ -109,8 +118,18 @@ var Lottery = (function() {
 
 })();
 
+
+
 $(document).ready(function() {
   Lottery.init();
+});
+
+$(function(){
+
+  setTimeout(function(){
+      Lottery.qwe(100);
+  },1000);
+
 });
 
 $(document).keydown(function(e) {
